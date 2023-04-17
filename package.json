@@ -1,0 +1,26 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {},
+  "name": "alx-backend-javascript",
+  "description": "",
+  "version": "1.0.0",
+  "main": "0-constants.js",
+  "type": "module",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/BlightG/alx-backend-javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlightG/alx-backend-javascript/issues"
+  },
+  "homepage": "https://github.com/BlightG/alx-backend-javascript#readme"
+}
