@@ -7,11 +7,12 @@ export default function handleProfileSignup() {
   // console.log(user)
   try {
     uploadPhoto().then(
-      (value) => { process.stdout.write(value.body); },
-    );
-    createUser().then(
-      (value) => { console.log(` ${value.firstName} ${value.lastName}`); },
-    );
+      (value) => {
+        const body = value.body;
+        createUser().then(
+          (value) => { console.log(`${body} ${value.firstName} ${value.lastName}`); },
+        );
+      });
   } catch (error) {
     console.log('Signup system offline');
   }
