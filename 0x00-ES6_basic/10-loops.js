@@ -6,8 +6,4 @@ export default function appendToEachArrayValue(array, appendString) {
   }
 
   return newarray;
-//   for (const idx of array) {
-//     idx = appendString + idx;
-//   }
-//   return array;
 }
