@@ -19,4 +19,6 @@ export default class Building {
       throw new TypeError('sqft must be a Number');
     }
   }
+
+  static evacuationWarningMessage() { }
 }
