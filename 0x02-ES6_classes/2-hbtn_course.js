@@ -22,7 +22,7 @@ export default class HolbertonCourse {
     if (typeof value === 'string') {
       this._name = value;
     } else {
-      throw 'Name must be a string';
+      throw new Error('Name must be a string');
     }
   }
 
@@ -31,7 +31,6 @@ export default class HolbertonCourse {
       this._length = value;
     } else {
       throw 'lenght must be a Number';
-
     }
   }
 
