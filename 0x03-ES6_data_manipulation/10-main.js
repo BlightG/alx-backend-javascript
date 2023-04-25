@@ -4,5 +4,6 @@ import groceriesList from "./9-groceries_list.js";
 const map = groceriesList();
 console.log(map);
 
+const array = [];
 updateUniqueItems(map)
 console.log(map);
