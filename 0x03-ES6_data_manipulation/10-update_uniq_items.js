@@ -1,5 +1,5 @@
 export default function updateUniqueItems(map) {
-  if (typeof map !== 'map') {
+  if (!map instanceof Map) {
     throw new Error('Cannot process');
   }
 
