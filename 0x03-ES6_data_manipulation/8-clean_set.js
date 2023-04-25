@@ -16,6 +16,5 @@ export default function cleanSet(set, preffix) {
   }
 
   const str = array.join('-');
-  console.log(array);
   return str;
 }
