@@ -1,9 +1,14 @@
 export default function cleanSet(set, preffix) {
   const array = [];
 
+  if (typeof preffix !== 'string') {
+    return '';
+  }
+
   if (preffix.length === 0) {
     return '';
   }
+
   for (const elm of set) {
     if (elm.startsWith(preffix)) {
       array.push(elm.slice(-(elm.length - preffix.length)));
@@ -11,5 +16,6 @@ export default function cleanSet(set, preffix) {
   }
 
   const str = array.join('-');
+  console.log(array);
   return str;
 }
