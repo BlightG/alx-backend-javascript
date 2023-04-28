@@ -10,8 +10,10 @@ export default function cleanSet(set, preffix) {
   }
 
   for (const elm of set) {
-    if (elm.startsWith(preffix) && typeof elm === 'string') {
-      array.push(elm.slice(-(elm.length - preffix.length)));
+    if (typeof elm === 'string') {
+      if (elm.startsWith(preffix)) {
+        array.push(elm.slice(-(elm.length - preffix.length)));
+      }
     }
   }
 
