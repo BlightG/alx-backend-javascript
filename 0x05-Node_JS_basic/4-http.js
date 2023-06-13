@@ -10,7 +10,7 @@ const app = http.createServer((req, res) => {
 });
 
 app.listen(port, hostname, () => {
-  console.log('...')
+  console.log('...');
 });
 
-module.exports = app
+module.exports = app;
