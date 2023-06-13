@@ -36,9 +36,8 @@ function countStudents(path) {
           }
           resolve(output);
         });
+      reject();
     });
-  } else {
-    throw new Error('Cannot load the database');
   }
 }
 
@@ -53,12 +52,17 @@ const app = http.createServer(async (req, res) => {
   }
 
   if (req.url === '/students') {
-    res.write('This is the list of our students\n');
-    countStudents(process.argv[2])
-      .then((output) => {
-        const outString = output.slice(0, -1);
-        res.end(outString);
-      });
+    try {
+      countStudents(process.argv[2])
+        .then((output) => {
+          const outString = output.slice(0, -1);
+          res.write('This is the list of our students\n');
+          res.end(outString);
+        }).catch(() =>
+          res.end('Cannot load the database'));
+    } catch (err) {
+      throw new Error('Cannot load the database');
+    }
   }
 });
 
