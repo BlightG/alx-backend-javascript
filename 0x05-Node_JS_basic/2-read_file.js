@@ -28,7 +28,7 @@ function countStudents(path) {
       .on("close", () => {
         console.log(`Number of students: ${rowcount - 1}`);
         for (key in field) {
-          console.log(`Number of students in ${key}: ${field[key].length}. List: ${field[key].join(", ")} `);
+          console.log(`Number of students in ${key}: ${field[key].length}. List: ${field[key].join(", ")}`);
         }
       });
   } else {
