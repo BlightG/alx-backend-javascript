@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const field = {};
 
-function countStudents(path) {
+function countStudents (path) {
   if (fs.existsSync(path)) {
     return new Promise((resolve, reject) => {
       let rowcount = 0;
