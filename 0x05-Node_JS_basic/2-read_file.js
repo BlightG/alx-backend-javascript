@@ -1,7 +1,7 @@
 const fs = require('fs');
 const field = {};
 
-function countStudents (path) {
+function countStudents(path) {
   if (fs.existsSync(path)) {
     let rowcount = 0;
     const allFileContents = fs.readFileSync(path, 'utf-8');
