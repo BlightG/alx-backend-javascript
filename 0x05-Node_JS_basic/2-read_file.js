@@ -3,7 +3,6 @@ const readline = require('readline');
 const field = {}
 
 function countStudents(path) {
-  // try {
   if (fs.existsSync(path)) {
     let rowcount = 0;
     const inputstream = fs.createReadStream(path);
@@ -13,17 +12,19 @@ function countStudents(path) {
     });
     linereader
       .on('line', (line) => {
-        if (rowcount != 0) {
-          const val = line.split(',');
-          if (val[3] in field) {
-            field[val[3]].push(val[0]);
-          } else {
-            let studentlist = [];
-            studentlist.push(val[0]);
-            field[val[3]] = studentlist;
+        if (line.length > 0) {
+          if (rowcount != 0) {
+            const val = line.split(',');
+            if (val[3] in field) {
+              field[val[3]].push(val[0]);
+            } else {
+              let studentlist = [];
+              studentlist.push(val[0]);
+              field[val[3]] = studentlist;
+            }
           }
+          rowcount++;
         }
-        rowcount++;
       })
       .on("close", () => {
         console.log(`Number of students: ${rowcount - 1}`);
@@ -34,9 +35,6 @@ function countStudents(path) {
   } else {
     throw new Error('Cannot load the database');
   }
-  // } catch (err) {
-  //   console.error(err);
-  // }
 }
 
 module.exports = countStudents;
