@@ -1,5 +1,46 @@
 const http = require('http');
-const countStudents = require('./3-read_file_async');
+const fs = require('fs');
+const readline = require('readline');
+const field = {};
+
+function countStudents(path) {
+  if (fs.existsSync(path)) {
+    return new Promise((resolve, reject) => {
+      let rowcount = 0;
+      let output = '';
+      const inputstream = fs.createReadStream(path);
+      const linereader = readline.createInterface({
+        input: inputstream,
+        terminal: false
+      });
+      linereader
+        .on('line', (line) => {
+          if (line.length > 0) {
+            if (rowcount !== 0) {
+              const val = line.split(',');
+              if (val[3] in field) {
+                field[val[3]].push(val[0]);
+              } else {
+                const studentlist = [];
+                studentlist.push(val[0]);
+                field[val[3]] = studentlist;
+              }
+            }
+            rowcount++;
+          }
+        })
+        .on('close', () => {
+          output += `Number of students: ${rowcount - 1}\n`;
+          for (const key in field) {
+            output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
+          }
+          resolve(output);
+        });
+    });
+  } else {
+    throw new Error('Cannot load the database');
+  }
+}
 
 const hostname = '127.0.0.1';
 const port = 1245;
@@ -12,12 +53,12 @@ const app = http.createServer(async (req, res) => {
   }
 
   if (req.url === '/students') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.write('This is the list of our students');
-    const output = await countStudents(process.argv[2]);
-    res.write(JSON.stringify(output));
-    res.end()
+    res.write('This is the list of our students\n');
+    countStudents(process.argv[2])
+      .then((output) => {
+        const outString = output.slice(0, -1);
+        res.end(outString);
+      });
   }
 });
 
@@ -25,4 +66,4 @@ app.listen(port, hostname, () => {
   console.log('...')
 });
 
-module.exports = app
+module.exports = app;
