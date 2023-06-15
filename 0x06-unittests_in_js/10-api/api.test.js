@@ -24,4 +24,30 @@ describe('tests an express instance', () => {
       done();
     });
   });
+
+  it('tests the for GET /available_payments', (done) => {
+    request('http://127.0.0.1:7865/available_payments', (error, response, body) => {
+      assert.equal(response.statusCode, 200);
+      const myObj = {
+        payment_methods: {
+          credit_cards: true,
+          paypal: false
+        }
+      };
+      assert.equal(body, JSON.stringify(myObj));
+      done();
+    });
+  });
+
+  it('tests the error for POST /login', (done) => {
+    request.post({
+      url: 'http://127.0.0.1:7865/login',
+      json: { "userName": "Betty" }
+    }, (error, response, body) => {
+      if (error) return done(error);
+      assert.equal(response.statusCode, 200);
+      assert.equal(body, 'Welcome Betty');
+      done();
+    });
+  });
 });
