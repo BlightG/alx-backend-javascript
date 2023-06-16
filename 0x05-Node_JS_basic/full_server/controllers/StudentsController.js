@@ -27,8 +27,8 @@ class StudentsController {
     if (major === 'CS' || major === 'SWE') {
       readDatabase(process.argv[2])
         .then((field) => {
-          let output = 'This is the list of our students\n';
-          output += `Number of students in ${major}: ${field[major].length}. List: ${field[major].join(', ')}`;
+          let output = '';
+          output += `List: ${field[major].join(', ')}`;
           response.status(200).send(output);
         }).catch(() => {
           response.status(500).send('Cannot load the database');
