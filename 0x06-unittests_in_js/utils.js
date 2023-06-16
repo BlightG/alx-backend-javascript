@@ -5,7 +5,7 @@ const Utils = {
     if (type === 'SUM') {
       return arg1 + arg2;
     } else if (type === 'SUBTRACT') {
-      return arg2 - arg1;
+      return arg1 - arg2;
     } else if (type === 'DIVIDE') {
       if (arg2 === 0) {
         return 'Error';
