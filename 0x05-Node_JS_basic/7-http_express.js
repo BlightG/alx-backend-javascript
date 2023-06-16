@@ -1,19 +1,20 @@
 const express = require('express');
 const fs = require('fs');
 const readline = require('readline');
+
 const field = {};
 const app = express();
 const port = 1245;
 
 function countStudents(path) {
   if (fs.existsSync(path)) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let rowcount = 0;
       let output = '';
       const inputstream = fs.createReadStream(path);
       const linereader = readline.createInterface({
         input: inputstream,
-        terminal: false
+        terminal: false,
       });
       linereader
         .on('line', (line) => {
@@ -28,18 +29,21 @@ function countStudents(path) {
                 field[val[3]] = studentlist;
               }
             }
-            rowcount++;
+            rowcount += 1;
           }
         })
         .on('close', () => {
           output += `Number of students: ${rowcount - 1}\n`;
           for (const key in field) {
-            output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
+            if (key) {
+              output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
+            }
           }
           resolve(output);
         });
     });
   }
+  return new Promise.Reject(Error('Cannot load database'));
 }
 
 app.get('/', (req, res) => {
@@ -48,16 +52,15 @@ app.get('/', (req, res) => {
 
 app.get('/students', (req, res) => {
   try {
-    countStudents(process.argv[2]).
-      then((output) => {
-        let outString = output.slice(0, -1);
-        outString = 'This is the list of our students\n' + outString
-        res.send(outString);
-      })
+    countStudents(process.argv[2])
+      .then((output) => {
+        const outString = output.slice(0, -1);
+        res.send(`This is the list of our students\n${outString}`);
+      });
   } catch (err) {
-    throw new Error('Cannot load the database');
+    res.send('This is the list of our students\nCannot load the database');
   }
-})
+});
 
 app.listen(port, () => {
   console.log('...');

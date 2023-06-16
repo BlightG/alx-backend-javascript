@@ -39,7 +39,7 @@ function countStudents(path) {
         });
     });
   }
-  throw new Error('Error: Cannot load the database');
+  return Promise.reject(Error('Error: Cannot load the database'));
 }
 
 module.exports = countStudents;
