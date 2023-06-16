@@ -23,7 +23,7 @@ class StudentsController {
   }
 
   static getAllStudentsByMajor(request, response) {
-    const { major } = request.params.major;
+    const { major } = request.params;
     if (major === 'CS' || major === 'SWE') {
       readDatabase(process.argv[2])
         .then((field) => {
