@@ -10,10 +10,10 @@ describe('test the calculatenumber function', () => {
   });
 
   it('should test the SUM type', () => {
-    expect(calculateNumber('SUBTRACT', 1, 2)).to.equal(1);
-    expect(calculateNumber('SUBTRACT', 1.4, 2.4)).to.equal(1);
-    expect(calculateNumber('SUBTRACT', 0.8, 1.8)).to.equal(1);
-    expect(calculateNumber('SUBTRACT', 0.5, 1.5)).to.equal(1);
+    expect(calculateNumber('SUBTRACT', 1, 2)).to.equal(-1);
+    expect(calculateNumber('SUBTRACT', 1.4, 2.4)).to.equal(-1);
+    expect(calculateNumber('SUBTRACT', 0.8, 1.8)).to.equal(-1);
+    expect(calculateNumber('SUBTRACT', 0.5, 1.5)).to.equal(-1);
   });
 
   it('should test the DIVIDE type', () => {

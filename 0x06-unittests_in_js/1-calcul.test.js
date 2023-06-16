@@ -9,11 +9,11 @@ describe('test the calculatenumber function', () => {
     assert.equal(calculateNumber('SUM', 0.5, 1.5), 3);
   });
 
-  it('should test the SUM type', () => {
-    assert.equal(calculateNumber('SUBTRACT', 1, 2), 1);
-    assert.equal(calculateNumber('SUBTRACT', 1.4, 2.4), 1);
-    assert.equal(calculateNumber('SUBTRACT', 0.8, 1.8), 1);
-    assert.equal(calculateNumber('SUBTRACT', 0.5, 1.5), 1);
+  it('should test the SUBTRACT type', () => {
+    assert.equal(calculateNumber('SUBTRACT', 1, 2), -1);
+    assert.equal(calculateNumber('SUBTRACT', 1.4, 2.4), -1);
+    assert.equal(calculateNumber('SUBTRACT', 0.8, 1.8), -1);
+    assert.equal(calculateNumber('SUBTRACT', 0.5, 1.5), -1);
   });
 
   it('should test the DIVIDE type', () => {
