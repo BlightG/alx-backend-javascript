@@ -34,5 +34,5 @@ module.exports = function readDatabase(path) {
         });
     });
   }
-  return new Promise.Reject(Error('Cannot load database'));
+  return Promise.reject(Error('Cannot load database'));
 };
