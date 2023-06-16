@@ -10,7 +10,7 @@ app.use('/students', router);
 app.use('/students/:major', router);
 
 app.listen(port, () => {
-  console.log(`Serever running on port ${port}`)
+  console.log('...');
 });
 
 export default app;

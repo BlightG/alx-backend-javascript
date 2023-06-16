@@ -1,14 +1,13 @@
 const fs = require('fs');
 const readline = require('readline');
 
-const field = {};
-
+let field = {};
 
 module.exports = function readDatabase(path) {
   if (fs.existsSync(path)) {
     return new Promise((resolve) => {
       let rowcount = 0;
-      // let output = '';
+      field = {};
       const inputstream = fs.createReadStream(path);
       const linereader = readline.createInterface({
         input: inputstream,
@@ -31,14 +30,9 @@ module.exports = function readDatabase(path) {
           }
         })
         .on('close', () => {
-          // for (const key in field) {
-          //   if (key) {
-          //     output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
-          //   }
-          // }
           resolve(field);
         });
     });
   }
   return new Promise.Reject(Error('Cannot load database'));
-}
+};
