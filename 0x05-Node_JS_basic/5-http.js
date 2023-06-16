@@ -1,17 +1,18 @@
 const http = require('http');
 const fs = require('fs');
 const readline = require('readline');
+
 const field = {};
 
 function countStudents(path) {
   if (fs.existsSync(path)) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let rowcount = 0;
       let output = '';
       const inputstream = fs.createReadStream(path);
       const linereader = readline.createInterface({
         input: inputstream,
-        terminal: false
+        terminal: false,
       });
       linereader
         .on('line', (line) => {
@@ -26,18 +27,21 @@ function countStudents(path) {
                 field[val[3]] = studentlist;
               }
             }
-            rowcount++;
+            rowcount += 1;
           }
         })
         .on('close', () => {
           output += `Number of students: ${rowcount - 1}\n`;
           for (const key in field) {
-            output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
+            if (key) {
+              output += `Number of students in ${key}: ${field[key].length}. List: ${field[key].join(', ')}\n`;
+            }
           }
           resolve(output);
         });
     });
   }
+  return new Promise((reject) => { reject(Error('Cannot load database')); });
 }
 
 const hostname = '127.0.0.1';
@@ -51,18 +55,19 @@ const app = http.createServer(async (req, res) => {
   }
 
   if (req.url === '/students') {
+    res.write('This is the list of our students\n');
     countStudents(process.argv[2])
       .then((output) => {
         const outString = output.slice(0, -1);
-        res.write('This is the list of our students\n');
         res.end(outString);
-      }).catch(() =>
-        res.end('Cannot load the database'));
+      }).catch(() => {
+        res.end('Cannot load the database');
+      });
   }
 });
 
 app.listen(port, hostname, () => {
-  console.log('...')
+  console.log('...');
 });
 
 module.exports = app;
