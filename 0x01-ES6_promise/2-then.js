@@ -13,8 +13,11 @@ export default async function handleResponseFromAPI(promise) {
   //   }
   // });
   try {
-    const val = await promise;
-    return val;
+    await promise;
+    return {
+      status: 200,
+      body: 'success',
+    };
   } catch (err) {
     return new Error();
   } finally {
