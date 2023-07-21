@@ -1,4 +1,4 @@
-export default function handleResponseFromAPI(promise) {
+export default async function handleResponseFromAPI(promise) {
   // return new Promise((resolve, reject) => {
   //   console.log('Got a response from the API');
   //   if (promise) {
@@ -12,9 +12,12 @@ export default function handleResponseFromAPI(promise) {
   //     reject(Error());
   //   }
   // });
-  promise.then(() => { return ({ status: 200, body: 'success' }); })
-    .catch(() => new Error(''))
-    .finally(() => {
-      console.log('Got a response from the API');
-    });
+  try {
+    const val = await promise;
+    return val;
+  } catch (err) {
+    return new Error();
+  } finally {
+    console.log('Got a response from the API');
+  }
 }
